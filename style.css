@@ -3,3 +3,7 @@ body {
   font-family: Sans-Serif;
   color: white;
 }
+
+h1 {
+  position: center;
+}
