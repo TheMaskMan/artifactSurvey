@@ -4,6 +4,14 @@ body {
   color: white;
 }
 
+.hover {
+  color: white;
+}
+.hover:hover {
+  text-decoration: bold;
+  color: yellow;
+}
+
 h1 {
   position: center;
 }
