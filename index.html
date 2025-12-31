@@ -15,33 +15,33 @@
 
       <label>
         Your email
-        <input type="text" name="name" required>
+        <input type="text" name="Email" required>
       </label>
 
       <p class="question">Type of Artifact</p>
 
       <label class="option">
-        <input type="radio" name="type" value="ceramic" required>
+        <input type="radio" name="Type" value="ceramic" required>
         Ceramic
       </label>
       <br>
       <label class="option">
-        <input type="radio" name="type" value="tool">
+        <input type="radio" name="Type" value="tool">
         Tool
       </label>
       <br>
       <label class="option">
-        <input type="radio" name="type" value="food">
+        <input type="radio" name="Type" value="food">
         Food
       </label>
       <br>
       <label class="option">
-        <input type="radio" name="type" value="decoration">
+        <input type="radio" name="Type" value="decoration">
         Decoration
       </label>
       <br>
       <label class="option">
-        <input type="radio" name="type" value="undetermined">
+        <input type="radio" name="Type" value="undetermined">
         Undetermined
       </label>
       <br>
@@ -49,27 +49,64 @@
       <p class="question">Type of Artifact</p>
 
       <label class="option">
-        <input type="radio" name="size" value="small">
+        <input type="radio" name="Size" value="small">
         Small <i>ex. Spoon, Cup</i>
       </label>
       <br>
       <label class="option">
-        <input type="radio" name="size" value="medium">
+        <input type="radio" name="Size" value="medium">
         Medium <i>ex. Pot, Plates</i>
       </label>
       <br>
       <label class="option">
-        <input type="radio" name="size" value="large">
+        <input type="radio" name="Size" value="large">
         Large <i>ex. Chair, Piano</i>
       </label>
       <br>
       <label>
         Date Found:
-        <input type="text" name="date" required>
+        <input type="text" name="Date" required>
       </label>
+      <br>
+<p class="question">Select your location</p>
+<div id="map"></div>
+<input type="hidden" name="location" id="location" required>
+      <br>
       <button type="submit">Submit</button>
     </form>
   </div>
+<script>
+let map;
+let marker;
 
+function initMap() {
+  const start = { lat: 40.7128, lng: -74.0060 };
+
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 4,
+    center: start,
+  });
+
+  map.addListener("click", (e) => {
+    const position = e.latLng;
+
+    if (marker) marker.setMap(null);
+
+    marker = new google.maps.Marker({
+      position,
+      map,
+    });
+
+    document.getElementById("location").value =
+      position.lat() + ", " + position.lng();
+  });
+}
+</script>
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
+  async
+  defer>
+</script>
 </body>
 </html>
