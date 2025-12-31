@@ -1,16 +1,58 @@
 body {
-  background-color: black;
-  font-family: Sans-Serif;
+  font-family: Arial, sans-serif;
+  background: #f1f3f4;
+  padding: 40px;
+}
+
+.form-card {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.question {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.option {
+  margin-left: 10px;
+}
+
+button {
+  margin-top: 25px;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background: #1a73e8;
   color: white;
-  text-align: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-h1:hover {
-  text-decoration: bold;
-  color: yellow;
-}
-
-h3:hover {
-  text-decoration: bold;
-  color: yellow;
+button:hover {
+  background: #1558b0;
 }
