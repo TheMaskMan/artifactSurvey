@@ -68,45 +68,49 @@
         <input type="text" name="Date" required>
       </label>
       <br>
-<p class="question">Select your location</p>
-<div id="map"></div>
-<input type="hidden" name="location" id="location" required>
-      <br>
+ <!-- Map -->
+      <p class="question">Click your location on the map</p>
+      <div id="map"></div>
+
+      <!-- Hidden input sent to Formspree -->
+      <input type="hidden" name="location" id="location" required>
+
       <button type="submit">Submit</button>
     </form>
   </div>
-<script>
-let map;
-let marker;
 
-function initMap() {
-  const start = { lat: 40.7128, lng: -74.0060 };
+  <!-- Google Maps JS -->
+  <script>
+    let map;
+    let marker;
 
-  map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 4,
-    center: start,
-  });
+    function initMap() {
+      const start = { lat: 39.8283, lng: -98.5795 }; // USA center
 
-  map.addListener("click", (e) => {
-    const position = e.latLng;
+      map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 4,
+        center: start,
+      });
 
-    if (marker) marker.setMap(null);
+      map.addListener("click", (e) => {
+        const position = e.latLng;
 
-    marker = new google.maps.Marker({
-      position,
-      map,
-    });
+        if (marker) marker.setMap(null);
 
-    document.getElementById("location").value =
-      position.lat() + ", " + position.lng();
-  });
-}
-</script>
+        marker = new google.maps.Marker({
+          position,
+          map,
+        });
 
-<script
-  src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
-  async
-  defer>
-</script>
+        document.getElementById("location").value =
+          position.lat() + ", " + position.lng();
+      });
+    }
+  </script>
+
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
+    async defer>
+  </script>
 </body>
 </html>
