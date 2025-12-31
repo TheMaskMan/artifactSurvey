@@ -14,7 +14,7 @@
     <form action="https://formspree.io/f/mpqwzwqk" method="POST">
 
       <label>
-        Your email
+        <b>Your email</b>
         <input type="text" name="Email" required>
       </label>
 
@@ -64,28 +64,26 @@
       </label>
       <br>
       <label>
-        Date Found:
+        <b>Date Found</b>
         <input type="text" name="Date" required>
       </label>
       <br>
- <!-- Map -->
-      <p class="question">Click your location on the map</p>
+
+      <p class="question"><b>Click the location of the artifact</b></p>
       <div id="map"></div>
 
-      <!-- Hidden input sent to Formspree -->
       <input type="hidden" name="location" id="location" required>
 
       <button type="submit">Submit</button>
     </form>
   </div>
 
-  <!-- Google Maps JS -->
   <script>
     let map;
     let marker;
 
     function initMap() {
-      const start = { lat: 39.8283, lng: -98.5795 }; // USA center
+      const start = { lat: 39.8283, lng: -98.5795 }; 
 
       map = new google.maps.Map(document.getElementById("map"), {
         zoom: 4,
