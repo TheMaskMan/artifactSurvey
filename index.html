@@ -2,114 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Artifact Discovery Survey</title>
-
+  <title>Artifact Survey</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="form-card">
-    <h2>Artifact Discovery Survey</h2>
+<div class="form-card">
+  <h2>Artifact Discovery Survey</h2>
 
-    <form action="https://formspree.io/f/mpqwzwqk" method="POST">
+  <form id="surveyForm" action="https://formspree.io/f/mpqwzwqk" method="POST">
 
-      <label>
-        <b>Your Email</b>
-        <br>
-        <br>
-        <input type="email" name="Email" placeholder="name@example.com" required>
-      </label>
+    <label>
+      Your Email
+      <input type="email" name="Email" required>
+    </label>
 
-      <p class="question">Type of Artifact</p>
+    <p class="question">Artifact Type</p>
+    <label class="option"><input type="radio" name="Type" value="Ceramic" required> Ceramic</label>
+    <label class="option"><input type="radio" name="Type" value="Tool"> Tool</label>
+    <label class="option"><input type="radio" name="Type" value="Food"> Food</label>
+    <label class="option"><input type="radio" name="Type" value="Decoration"> Decoration</label>
 
-      <label class="option">
-        <input type="radio" name="Type" value="ceramic" required>
-        Ceramic
-      </label>
-      <label class="option">
-        <input type="radio" name="Type" value="tool">
-        Tool
-      </label>
-      <label class="option">
-        <input type="radio" name="Type" value="food">
-        Food
-      </label>
-      <label class="option">
-        <input type="radio" name="Type" value="decoration">
-        Decoration
-      </label>
-      <label class="option">
-        <input type="radio" name="Type" value="undetermined">
-        Undetermined
-      </label>
+    <p class="question">Artifact Size</p>
+    <label class="option"><input type="radio" name="Size" value="Small" required> Small</label>
+    <label class="option"><input type="radio" name="Size" value="Medium"> Medium</label>
+    <label class="option"><input type="radio" name="Size" value="Large"> Large</label>
 
-      <p class="question">Type of Artifact</p>
+    <label>
+      Date Found
+      <input type="date" name="Date" required>
+    </label>
 
-      <label class="option">
-        <input type="radio" name="Size" value="small">
-        Small <i>ex. Spoon, Cup</i>
-      </label>
-      <label class="option">
-        <input type="radio" name="Size" value="medium">
-        Medium <i>ex. Pot, Plates</i>
-      </label>
-      <label class="option">
-        <input type="radio" name="Size" value="large">
-        Large <i>ex. Chair, Piano</i>
-      </label>
-      <label>
-        <b>Date Found</b>
-        <br>
-        <br>
-        <input type="date" name="Date" required>
-      </label>
+    <label>
+      Location (text demo)
+      <input type="text" name="Location" required>
+    </label>
 
-      <p class="question"><b>Click the location of the artifact</b></p>
-      <div id="map"></div>
-      <input type="hidden" name="location" id="location" required>
+    <button type="submit">Submit</button>
+  </form>
+</div>
 
-      <label>
-        <b>Comments About The Artifact/Discovery</b>
-        <br>
-        <br>
-        <input type="text" name="Comments" placeholder="Comments Here">
-      </label>
-      
-      <button type="submit">Submit</button>
-    </form>
-  </div>
+<script>
+  const form = document.getElementById("surveyForm");
 
-  <script>
-    let map;
-    let marker;
+  form.addEventListener("submit", () => {
+    const data = {
+      email: form.Email.value,
+      type: form.Type.value,
+      size: form.Size.value,
+      date: form.Date.value,
+      location: form.Location.value,
+      time: new Date().toLocaleString()
+    };
 
-    function initMap() {
-      const start = { lat: 39.8283, lng: -98.5795 }; 
+    let submissions = JSON.parse(localStorage.getItem("submissions")) || [];
+    submissions.push(data);
+    localStorage.setItem("submissions", JSON.stringify(submissions));
+  });
+</script>
 
-      map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 4,
-        center: start,
-      });
-
-      map.addListener("click", (e) => {
-        const position = e.latLng;
-
-        if (marker) marker.setMap(null);
-
-        marker = new google.maps.Marker({
-          position,
-          map,
-        });
-
-        document.getElementById("location").value =
-          position.lat() + ", " + position.lng();
-      });
-    }
-  </script>
-
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
-    async defer>
-  </script>
 </body>
 </html>
