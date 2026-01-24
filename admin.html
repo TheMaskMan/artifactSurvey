@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<script>
+  if (localStorage.getItem("demoLoggedIn") !== "true") {
+    location.href = "login.html";
+  }
+</script>
+
+<div class="form-card">
+  <h2>Admin – Submissions</h2>
+
+  <div id="results"></div>
+
+  <button onclick="logout()">Logout</button>
+  <button onclick="clearData()">Clear All</button>
+</div>
+
+<script>
+  const results = document.getElementById("results");
+  const submissions = JSON.parse(localStorage.getItem("submissions")) || [];
+
+  if (submissions.length === 0) {
+    results.textContent = "No submissions yet.";
+  } else {
+    submissions.forEach((s, i) => {
+      const div = document.createElement("div");
+      div.className = "entry";
+      div.innerHTML = `
+        <strong>#${i + 1}</strong><br>
+        Email: ${s.email}<br>
+        Type: ${s.type}<br>
+        Size: ${s.size}<br>
+        Date: ${s.date}<br>
+        Location: ${s.location}<br>
+        Submitted: ${s.time}
+      `;
+      results.appendChild(div);
+    });
+  }
+
+  function logout() {
+    localStorage.removeItem("demoLoggedIn");
+    location.href = "login.html";
+  }
+
+  function clearData() {
+    if (confirm("Delete all submissions?")) {
+      localStorage.removeItem("submissions");
+      location.reload();
+    }
+  }
+</script>
+
+</body>
+</html>
