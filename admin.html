@@ -15,7 +15,6 @@
 
 <div class="form-card">
   <h2>Admin – Submissions</h2>
-
   <div id="results"></div>
 
   <button onclick="logout()">Logout</button>
@@ -26,22 +25,21 @@
   const results = document.getElementById("results");
   const submissions = JSON.parse(localStorage.getItem("submissions")) || [];
 
-  if (submissions.length === 0) {
+  if (!submissions.length) {
     results.textContent = "No submissions yet.";
   } else {
     submissions.forEach((s, i) => {
-      const div = document.createElement("div");
-      div.className = "entry";
-      div.innerHTML = `
-        <strong>#${i + 1}</strong><br>
-        Email: ${s.email}<br>
-        Type: ${s.type}<br>
-        Size: ${s.size}<br>
-        Date: ${s.date}<br>
-        Location: ${s.location}<br>
-        Submitted: ${s.time}
+      results.innerHTML += `
+        <div class="entry">
+          <strong>#${i + 1}</strong><br>
+          Email: ${s.email}<br>
+          Type: ${s.type}<br>
+          Size: ${s.size}<br>
+          Date: ${s.date}<br>
+          Location: ${s.location}<br>
+          Time: ${s.time}
+        </div>
       `;
-      results.appendChild(div);
     });
   }
 
@@ -51,7 +49,7 @@
   }
 
   function clearData() {
-    if (confirm("Delete all submissions?")) {
+    if (confirm("Clear all submissions?")) {
       localStorage.removeItem("submissions");
       location.reload();
     }
