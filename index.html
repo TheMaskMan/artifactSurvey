@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Artifact Survey</title>
+  <title>Artifact Discovery Survey</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -10,10 +10,11 @@
 <div class="form-card">
   <h2>Artifact Discovery Survey</h2>
 
-  <form id="surveyForm" action="https://formspree.io/f/mpqwzwqk" method="POST">
+  <form id="surveyForm"
+        action="https://formspree.io/f/mpqwzwqk"
+        method="POST">
 
-    <label>
-      Your Email
+    <label>Your Email
       <input type="email" name="Email" required>
     </label>
 
@@ -28,37 +29,68 @@
     <label class="option"><input type="radio" name="Size" value="Medium"> Medium</label>
     <label class="option"><input type="radio" name="Size" value="Large"> Large</label>
 
-    <label>
-      Date Found
+    <label>Date Found
       <input type="date" name="Date" required>
     </label>
 
-    <label>
-      Location (text demo)
-      <input type="text" name="Location" required>
-    </label>
+    <p class="question">Click location on map</p>
+    <div id="map"></div>
+
+    <!-- sent to Formspree + saved locally -->
+    <input type="hidden" name="Location" id="location" required>
 
     <button type="submit">Submit</button>
   </form>
 </div>
 
+<!-- GOOGLE MAPS SCRIPT -->
 <script>
-  const form = document.getElementById("surveyForm");
+  let map, marker;
 
-  form.addEventListener("submit", () => {
+  function initMap() {
+    const start = { lat: 39.8283, lng: -98.5795 }; // USA center
+
+    map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 4,
+      center: start
+    });
+
+    map.addListener("click", (e) => {
+      const pos = e.latLng;
+
+      if (marker) marker.setMap(null);
+
+      marker = new google.maps.Marker({
+        position: pos,
+        map: map
+      });
+
+      document.getElementById("location").value =
+        pos.lat().toFixed(5) + ", " + pos.lng().toFixed(5);
+    });
+  }
+
+  // Save to localStorage for admin demo
+  document.getElementById("surveyForm").addEventListener("submit", () => {
+    const f = surveyForm;
     const data = {
-      email: form.Email.value,
-      type: form.Type.value,
-      size: form.Size.value,
-      date: form.Date.value,
-      location: form.Location.value,
+      email: f.Email.value,
+      type: f.Type.value,
+      size: f.Size.value,
+      date: f.Date.value,
+      location: f.Location.value,
       time: new Date().toLocaleString()
     };
 
-    let submissions = JSON.parse(localStorage.getItem("submissions")) || [];
-    submissions.push(data);
-    localStorage.setItem("submissions", JSON.stringify(submissions));
+    const list = JSON.parse(localStorage.getItem("submissions")) || [];
+    list.push(data);
+    localStorage.setItem("submissions", JSON.stringify(list));
   });
+</script>
+
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"
+  async defer>
 </script>
 
 </body>
