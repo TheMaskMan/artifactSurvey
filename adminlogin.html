@@ -1,20 +1,14 @@
 <!DOCTYPE html>
-
-<head>
-  <link rel="stylesheet" href="styles.css">
-</head>
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Demo Login</title>
+  <title>Login</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="form-card">
-  <h2>Login</h2>
+  <h2>Admin Login</h2>
 
   <label>
     Email
@@ -28,21 +22,20 @@
 
   <button onclick="login()">Login</button>
 
-  <p id="error" style="color:red;"></p>
+  <p id="error"></p>
 </div>
 
 <script>
   function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const email = email.value;
+    const password = password.value;
 
-    // DEMO credentials (change these)
-    if (email === "demo@example.com" && password === "1234") {
+    // DEMO credentials (change if you want)
+    if (email === "admin@example.com" && password === "1234") {
       localStorage.setItem("demoLoggedIn", "true");
-      window.location.href = "index.html";
+      location.href = "admin.html";
     } else {
-      document.getElementById("error").textContent =
-        "Incorrect email or password";
+      error.textContent = "Incorrect login";
     }
   }
 </script>
