@@ -13,19 +13,11 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-h2 {
-  margin-bottom: 20px;
-}
+h2 { margin-bottom: 20px; }
 
-label {
-  display: block;
-  margin-bottom: 10px;
-}
+label { display: block; margin-bottom: 10px; }
 
-.question {
-  margin-top: 20px;
-  font-weight: bold;
-}
+.question { margin-top: 20px; font-weight: bold; }
 
 input {
   width: 100%;
@@ -35,8 +27,13 @@ input {
   border: 1px solid #ccc;
 }
 
-.option {
-  margin-left: 10px;
+.option { margin-left: 10px; }
+
+#map {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 button {
@@ -50,9 +47,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  background: #1558b0;
-}
+button:hover { background: #1558b0; }
 
 .entry {
   padding: 10px;
@@ -60,6 +55,4 @@ button:hover {
   margin-bottom: 10px;
 }
 
-#error {
-  color: red;
-}
+#error { color: red; }
